@@ -22,22 +22,10 @@
                   <li class="menu-title">Menu</li>
 
                   <li>
-                      @if (auth()->user()->role == 'super_admin')
-                          <a href="{{ url('admin/dashboard') }}" class="waves-effect">
+                      <a href="{{ url('dashboard') }}" class="waves-effect">
                               <i class="ri-dashboard-line"></i>
                               <span>Dashboard</span>
                           </a>
-                      @elseif (auth()->user()->role == 'admin_kecamatan')
-                          <a href="{{ url('kecamatan/dashboard') }}" class="waves-effect">
-                              <i class="ri-dashboard-line"></i>
-                              <span>Dashboard</span>
-                          </a>
-                      @elseif (auth()->user()->role == 'admin_desa')
-                          <a href="{{ url('desa/dashboard') }}" class="waves-effect">
-                              <i class="ri-dashboard-line"></i>
-                              <span>Dashboard</span>
-                          </a>
-                      @endif
 
                   </li>
                   {{-- admin --}}
@@ -51,6 +39,20 @@
                               <li><a href="{{ url('admin/master/kecamatan') }}">Kecamatan</a></li>
                               <li><a href="{{ url('admin/master/desa') }}">Desa</a></li>
                               <li><a href="{{ url('admin/master/bumdes') }}">Bumdes</a></li>
+                              <li><a href="{{ url('admin/master/opd') }}">OPD</a></li>
+                              
+                          </ul>
+                      </li>
+                      <li>
+                          <a href="javascript: void(0);" class="has-arrow waves-effect">
+                              <i class="ri-user-2-line"></i>
+                              <span>Kelola Pengguna</span>
+                          </a>
+                          <ul class="sub-menu" aria-expanded="false">
+                              <li><a href="{{ url('admin/user/petugas ') }}">Petugas </a></li>
+                              <li><a href="{{ url('admin/user/operator-bumdes') }}">Operator Bumdes</a></li>
+                              <li><a href="{{ url('admin/user/operator-opd') }}">Operator OPD</a></li>
+                             
                               
                           </ul>
                       </li>
@@ -67,20 +69,15 @@
                           </a>
                       </li>
                   @endif
-                  {{-- admin kecamatan --}}
-                  @if (auth()->user()->role == 'admin_kecamatan')
+                  {{-- Operator OPD --}}
+                  @if (auth()->user()->role == 'operator-bumdes')
                       <li>
                           <a href="{{ url('verifikasi') }}" class=" waves-effect">
                               <i class="mdi mdi-check-circle-outline"></i>
-                              <span>Verifikasi Dokumen</span>
+                              <span>Pengajuan Izin Usaha</span>
                           </a>
                       </li>
-                      <li>
-                          <a href="{{ url('approve-dokumen') }}" class=" waves-effect">
-                              <i class="fas fa-file-signature "></i>
-                              <span>Upload Dokumen Final </span>
-                          </a>
-                      </li>
+                      
                   @endif
                   @if (auth()->user()->role == 'admin_desa')
                       <li>

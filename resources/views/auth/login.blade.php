@@ -27,21 +27,19 @@
             <div class="card">
                 <div class="card-body">
 
-                    <div class="text-center mt-4">
-                        <div class="mb-3">
+                    <div class="text-center">
+                        <div class="">
                             <a href="" class="auth-logo">
-                                <img src="{{ asset('assets/logo.png') }}" height="150" class="logo-dark mx-auto"
+                                <img src="{{ asset('assets/logo.png') }}" height="300" class="logo-dark mx-auto"
                                     alt="">
-                                <img src="{{ asset('assets/logo.png') }}" height="150" class="logo-light mx-auto"
+                                <img src="{{ asset('assets/logo.png') }}" height="300" class="logo-light mx-auto"
                                     alt="">
                             </a>
                         </div>
                     </div>
 
-                    <h4 class="text-muted text-center font-size-14">E-PAMELUM adalah platform digital administrasi
-                        publik yang berfungsi sebagai alat bantu kerja untuk Aparat Desa dan Kecamatan Raren Batuah.
-                    </h4>
-                    <div class="p-3">
+                    
+                    <div class="p-3">   
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 {{ $errors->first() }}

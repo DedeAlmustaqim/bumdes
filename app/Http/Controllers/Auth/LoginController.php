@@ -57,19 +57,18 @@ class LoginController extends Controller
     {
         switch ($role) {
             case 'administrator-sistem':
-                return redirect('admin/dashboard');
+                return redirect('dashboard');
             case 'operator-bumdes':
-                return redirect('bumdes/dashboard');
+                return redirect('dashboard');
             case 'verifikator':
-                return redirect('admin/dashboard');
-            case 'kepala-bidang':
-                return redirect('admin/dashboard');
-            case 'kepala-dinas':
-                return redirect('admin/dashboard');
+                return redirect('dashboard');
+            case 'approver':
+                return redirect('dashboard');
+           
             case 'administrator-opd':
-                return redirect('admin/dashboard');
+                return redirect('dashboard');
             default:
-                return redirect('admin/dashboard');
+                return redirect('dashboard');
         }
     }
 
