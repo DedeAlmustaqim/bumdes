@@ -375,6 +375,7 @@
                     <i class="fas fa-user"></i>
                     {{-- <span class="d-none d-xl-inline-block ms-1"><small>{{ auth()->user()->role }}</small></span> --}}
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                    {{session('user_name')}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->

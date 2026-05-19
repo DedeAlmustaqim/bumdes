@@ -10,6 +10,7 @@
                     <button type="button" class="btn btn-primary waves-effect waves-light" onclick="formBumdes()"
                         data-type="add">+ Bumdes</button>
                     <hr>
+                    {{ session('bumdes_id') }}
                     <div class="table-responsive">
                         <table class="table mb-0" id="tabelBumdes" style="width: 100%;">
 

@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\ApproverController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DisposisiController;
+use App\Http\Controllers\IzinUsahaController;
 use App\Http\Controllers\Master\BumdesController;
 use App\Http\Controllers\Master\DesaController;
 use App\Http\Controllers\Master\KecamatanController;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('service')->group(function () {
         Route::get('/get-desa/{id}', [ServiceController::class, 'getDataDesa']);
-   
     });
 
 
@@ -78,16 +82,49 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/get-operator-bumdes-by-id/{id}', [App\Http\Controllers\UserController::class, 'showOpBumdes']);
         Route::post('/user/operator-bumdes', [App\Http\Controllers\UserController::class, 'storeOpBumdes']);
         Route::delete('/user/del-user-operator-bumdes/{id}', [App\Http\Controllers\UserController::class, 'destroyOpBumdes']);
-   
-      Route::get('/user/operator-opd', [App\Http\Controllers\UserController::class, 'userOpOpd']);
+
+        Route::get('/user/operator-opd', [App\Http\Controllers\UserController::class, 'userOpOpd']);
         Route::get('/user/get-datatables-operator-opd', [App\Http\Controllers\UserController::class, 'getDatatablesOpOpd']);
         Route::get('/user/get-operator-opd-by-id/{id}', [App\Http\Controllers\UserController::class, 'showOpOpd']);
         Route::post('/user/operator-opd', [App\Http\Controllers\UserController::class, 'storeOpOpd']);
         Route::delete('/user/del-user-operator-opd/{id}', [App\Http\Controllers\UserController::class, 'destroyOpOpd']);
-        });
+
+        
+    });
+    Route::middleware('role:verifikator||approver')->group(function () {
+        Route::get('monitoring', [MonitoringController::class, 'index']);
+        Route::get('/get-datatables-monitoring', [MonitoringController::class, 'getDatatablesMonitoring']);
+    });
 
     Route::prefix('bumdes')->middleware('role:operator-bumdes')->group(function () {
-    
-    
+        Route::get('/izin-usaha', [IzinUsahaController::class, 'bumdes']);
+        Route::get('/get-datatables-izin-usaha', [IzinUsahaController::class, 'getDatatablesIzinUsaha']);
+        Route::post('/izin-usaha', [IzinUsahaController::class, 'storeIzinUsahaBumdes']);
+        Route::get('/izin-usaha/{id}', [IzinUsahaController::class, 'showIzinBumdes']);
+        Route::delete('/izin-usaha/{id}', [IzinUsahaController::class, 'destroyIzinUsahaBumdes']);
+        Route::post('/submit/{id}/', [IzinUsahaController::class, 'submit']);
+    });
+
+    Route::prefix('verifikasi')->middleware('role:verifikator')->group(function () {
+        Route::get('/draft', [IzinUsahaController::class, 'verifikator_draft']);
+        Route::get('/get-datatables-draft', [IzinUsahaController::class, 'getDatatablesIzinUsahaDraft']);
+        Route::get('/unverifikasi', [IzinUsahaController::class, 'unverifikasi']);
+        Route::get('/get-datatables-unverifikasi', [IzinUsahaController::class, 'getDatatablesIzinUsahaSubmit']);
+        Route::post('/verify/{id}', [IzinUsahaController::class, 'verify']);
+    });
+    Route::prefix('approver')->middleware('role:approver')->group(function () {
+        Route::get('/izin-usaha', [ApproverController::class, 'index']);
+        Route::get('/get-datatables-izin-usaha', [ApproverController::class, 'getDatatablesApprove']);
+        Route::post('/approve/{id}', [ApproverController::class, 'approve']);
+    });
+
+     Route::prefix('opd')->middleware('role:operator-opd')->group(function () {
+        Route::get('/izin-usaha', [OpdController::class, 'index']);
+        Route::get('/get-datatables', [OpdController::class, 'getDatatablesOpd']);
+        Route::post('/approve/{id}', [ApproverController::class, 'approve']);
+
+
+        Route::get('/monitoring', [OpdController::class, 'MonitoringOpd']);
+            Route::get('/get-datatables-monitoring', [OpdController::class, 'getDatatablesMonitoringOpd']);
     });
 });

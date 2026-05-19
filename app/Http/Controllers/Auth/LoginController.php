@@ -36,6 +36,17 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             // Otentikasi berhasil
             $request->session()->regenerate();
+            // Generate session dari field user
+            $user = Auth::user();
+            $request->session()->put([
+                'user_id'    => $user->id,
+                'user_name'  => $user->name,
+                'user_email' => $user->email,
+                'user_role'  => $user->role,
+                'username'   => $user->username,
+                'bumdes_id'  => $user->bumdes_id,
+                'opd_id'     => $user->opd_id,
+            ]);
 
             // Opsional: Redirect berdasarkan role
             return $this->redirectToRoleBasedDashboard(Auth::user()->role);
@@ -64,8 +75,8 @@ class LoginController extends Controller
                 return redirect('dashboard');
             case 'approver':
                 return redirect('dashboard');
-           
-            case 'administrator-opd':
+
+            case 'operator-opd':
                 return redirect('dashboard');
             default:
                 return redirect('dashboard');
